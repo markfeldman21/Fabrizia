@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Fabrizia</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment1">Hello blank fragment 1</string>
+    <string name="hello_blank_fragment2">Hello blank fragment 2</string>
+
+    <!-- HOMEPAGE -->
+    <string name="home_title">OUR STORY</string>
+    <string name="home_our_story">Fabrizia Spirits is a family-owned and managed business by brothers
+        Phil and Nick Mastroianni.  After many years of hard work and grass roots efforts, Fabrizia is
+        now a citrus spirits market leader in both product quality and sales throughout New England, as well as
+        several other markets across the country.</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
