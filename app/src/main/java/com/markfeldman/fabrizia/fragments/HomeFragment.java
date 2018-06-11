@@ -1,9 +1,6 @@
 package com.markfeldman.fabrizia.fragments;
 
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,25 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.android.youtube.player.YouTubePlayerView;
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.utilities.YouTubeConfig;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment implements YouTubePlayer.OnInitializedListener {
     private final String TAG = "HOME FRAGMENT";
     private YouTubePlayerSupportFragment youTubePlayerSupportFragment;
+
 
 
     public HomeFragment() {
