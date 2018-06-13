@@ -19,7 +19,7 @@
                android:id="@+id/header"
                app:layout_constraintLeft_toLeftOf="parent"
                app:layout_constraintRight_toRightOf="parent"
-               android:padding="16dp"
+               android:paddingTop="8dp"
                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                android:textStyle="bold"
                android:text="@string/home_title"
@@ -30,11 +30,13 @@
 
            <TextView
                android:id="@+id/summary"
+
                android:text="@string/home_our_story"
                app:layout_constraintTop_toBottomOf="@+id/header"
                app:layout_constraintLeft_toLeftOf="parent"
                app:layout_constraintRight_toRightOf="parent"
-               android:padding="16dp"
+               android:paddingLeft="8dp"
+               android:paddingRight="8dp"
                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />

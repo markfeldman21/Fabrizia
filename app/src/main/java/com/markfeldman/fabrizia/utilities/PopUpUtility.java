@@ -21,7 +21,9 @@ public class PopUpUtility {
         final TextView popUpGetTask = view.findViewById(R.id.recipePopUp);
         String[]recipes = Data.getCocktailRecipes();
         popUpGetTask.setText(recipes[0]);
-        popUpGetTask.setTextColor(context.getResources().getColor(R.color.colorAccent));
+        popUpGetTask.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+        popUpGetTask.setTextSize(20);
+
 
         AlertDialog.Builder alert = new AlertDialog.Builder(new ContextThemeWrapper(context,R.style.AlertDialogCustom));
         alert.setView(view);

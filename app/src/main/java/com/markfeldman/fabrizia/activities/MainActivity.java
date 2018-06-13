@@ -9,7 +9,9 @@ import android.os.Bundle;
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.adapters.ViewPagerAdapter;
 import com.markfeldman.fabrizia.fragments.CocktailFragment;
+import com.markfeldman.fabrizia.fragments.ContactFragment;
 import com.markfeldman.fabrizia.fragments.HomeFragment;
+import com.markfeldman.fabrizia.fragments.ProductsFragment;
 import com.markfeldman.fabrizia.fragments.RecipesFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,8 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private void setUpViewPagerWithFrags(ViewPager viewPager){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new HomeFragment(),"HOME");
+        viewPagerAdapter.addFragment(new ProductsFragment(), "Products");
         viewPagerAdapter.addFragment(new CocktailFragment(), "Cocktails");
         viewPagerAdapter.addFragment(new RecipesFragment(),"Recipes");
+        viewPagerAdapter.addFragment(new ContactFragment(),"Contact");
         viewPager.setAdapter(viewPagerAdapter);
 
     }
