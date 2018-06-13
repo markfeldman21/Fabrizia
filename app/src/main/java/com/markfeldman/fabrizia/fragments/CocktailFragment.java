@@ -3,6 +3,8 @@ package com.markfeldman.fabrizia.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.adapters.CocktailsRecyclerView;
 import com.markfeldman.fabrizia.data.Data;
+import com.markfeldman.fabrizia.utilities.PopUpUtility;
 
 
 public class CocktailFragment extends Fragment implements CocktailsRecyclerView.CocktailRowClicked {
@@ -21,7 +24,6 @@ public class CocktailFragment extends Fragment implements CocktailsRecyclerView.
 
 
     public CocktailFragment() {
-
     }
 
 
@@ -42,6 +44,6 @@ public class CocktailFragment extends Fragment implements CocktailsRecyclerView.
 
     @Override
     public void onClicked(String cocktailName) {
-        Toast.makeText(getActivity(),cocktailName,Toast.LENGTH_LONG).show();
+        PopUpUtility.addTaskPopUpWindow(getActivity());
     }
 }
