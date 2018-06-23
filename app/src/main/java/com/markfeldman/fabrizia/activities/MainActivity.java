@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(new RecipesFragment(),"Recipes");
         viewPagerAdapter.addFragment(new ContactFragment(),"Contact");
         viewPager.setAdapter(viewPagerAdapter);
-
     }
 
 }

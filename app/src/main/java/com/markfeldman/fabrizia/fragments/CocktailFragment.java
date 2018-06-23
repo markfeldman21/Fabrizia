@@ -24,7 +24,6 @@ public class CocktailFragment extends Fragment implements DataRecyclerView.RowCl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view =  inflater.inflate(R.layout.fragment_cocktail, container, false);
         RecyclerView recyclerView = view.findViewById(R.id.cocktail_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -40,4 +39,6 @@ public class CocktailFragment extends Fragment implements DataRecyclerView.RowCl
     public void onClicked(String cocktailName) {
         PopUpUtility.addTaskPopUpWindow(getActivity());
     }
+
+
 }
