@@ -1,22 +1,31 @@
 package com.markfeldman.fabrizia.activities;
 
+import android.content.ContentValues;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.adapters.ViewPagerAdapter;
+import com.markfeldman.fabrizia.data.DataContract;
 import com.markfeldman.fabrizia.fragments.CocktailFragment;
 import com.markfeldman.fabrizia.fragments.ContactFragment;
 import com.markfeldman.fabrizia.fragments.HomeFragment;
 import com.markfeldman.fabrizia.fragments.ProductsFragment;
 import com.markfeldman.fabrizia.fragments.RecipesFragment;
+import com.markfeldman.fabrizia.utilities.FileReader;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter mViewPagerAdapter;
     private ViewPager viewPager;
+    FileReader fileReader = new FileReader();
 
 
     @Override
@@ -29,10 +38,9 @@ public class MainActivity extends AppCompatActivity {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.containerViewPager);
         setUpViewPagerWithFrags(viewPager);
-
+        new FileReader().readRecipesFromFile(this);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
 
     }
 

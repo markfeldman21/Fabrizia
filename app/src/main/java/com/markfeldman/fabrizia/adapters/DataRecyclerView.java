@@ -12,8 +12,11 @@ import android.widget.TextView;
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.data.Data;
 
+import java.util.ArrayList;
+
 public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private String[]data;
+    private ArrayList<String> arrayList;
     private Context context;
     private RowClicked rowClicked;
     final private int VIEW_TYPE_COCKTAILS = 0;
@@ -26,9 +29,9 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public DataRecyclerView(RowClicked rowClicked, Context context, String[]data){
+    public DataRecyclerView(RowClicked rowClicked, Context context, ArrayList<String> arrayList){
         this.context = context;
-        this.data = data;
+        this.arrayList = arrayList;
         this.rowClicked = rowClicked;
     }
 
@@ -70,17 +73,13 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_COCKTAILS:
                 CocktailsAdapterViewHolder holder1 = (CocktailsAdapterViewHolder) holder;
-                Log.d("TAG", "Inside On Bind View Cocktails");
-                String cocktail = data[position];
+                String cocktail = arrayList.get(position);
                 holder1.cocktailName.setText(cocktail);
                 break;
             case VIEW_TYPE_RECIPES:
                 RecipesAdapterViewHolder holder2 = (RecipesAdapterViewHolder) holder;
-                Log.d("TAG", "Inside On Bind View Recipes");
-                String recipes = data[position];
+                String recipes = arrayList.get(position);
                 holder2.recipe.setText(recipes);
-
-
                 break;
             default:
                 throw new IllegalArgumentException("Invalid view type, value of ");
@@ -89,10 +88,9 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-
     @Override
     public int getItemCount() {
-        return data.length;
+        return arrayList.size();
     }
 
 
@@ -100,8 +98,6 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private class CocktailsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView cocktailName;
-
-
 
         private CocktailsAdapterViewHolder(View itemView) {
             super(itemView);
@@ -138,8 +134,8 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public int getItemViewType(int position) {
         String[] cocktails = Data.getCocktails();
-        Log.d("TAG", "Data = " + data[0] + " and cocktails = " + cocktails[0]);
-        if (data[0].equals(cocktails[0])) {
+        //Log.d("TAG", "Data = " + data[0] + " and cocktails = " + cocktails[0]);
+        if (arrayList.get(0).equals(cocktails[0])) {
             Log.d("TAG", "Inside RecyclerView Type Is Cocktails");
             return VIEW_TYPE_COCKTAILS;
         } else {

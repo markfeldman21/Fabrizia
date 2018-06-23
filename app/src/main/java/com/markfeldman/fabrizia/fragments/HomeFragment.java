@@ -32,12 +32,14 @@ public class HomeFragment extends Fragment implements YouTubePlayer.OnInitialize
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        /*
         youTubePlayerSupportFragment = new YouTubePlayerSupportFragment();
         youTubePlayerSupportFragment.initialize(YouTubeConfig.getApiKey(),this);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.home_play_button, youTubePlayerSupportFragment);
         fragmentTransaction.commit();
+        */
 
         return view;
     }

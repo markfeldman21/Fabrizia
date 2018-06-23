@@ -33,13 +33,14 @@ public class RecipesFragment extends Fragment implements DataRecyclerView.RowCli
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
 
-
+        /*
         RecyclerView recyclerView = view.findViewById(R.id.recipe_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         DataRecyclerView dataRecyclerView = new DataRecyclerView(this,getActivity(), Data.getRecipeTitles());
         recyclerView.setAdapter(dataRecyclerView);
+        */
 
 
         return view;
