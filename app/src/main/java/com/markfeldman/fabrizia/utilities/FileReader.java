@@ -3,29 +3,32 @@ package com.markfeldman.fabrizia.utilities;
 import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
-
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.data.DataContract;
-
+import com.markfeldman.fabrizia.data.Database;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileReader {
     public void readRecipesFromFile(Context context){
         ArrayList<String[]> cocktailsAndIngredients = new ArrayList<>();
+        Database database = new Database(context);
+        database.openWritable();
         Scanner sc = new Scanner(context.getResources().openRawResource(R.raw.cocktail_recipe));
+
         while (sc.hasNextLine()){
             String cocktail = sc.nextLine();
             String [] seperated = cocktail.split("-");
             cocktailsAndIngredients.add(seperated);
+            insertToDB(cocktailsAndIngredients, context, database);
         }
-
-        insertToDB(cocktailsAndIngredients);
+        database.close();
 
     }
 
-    private void insertToDB(ArrayList<String[]> cocktailsAndIng){
+    private void insertToDB(ArrayList<String[]> cocktailsAndIng, Context context, Database database){
         ContentValues[] contentValuesArray = new ContentValues[cocktailsAndIng.size()];
+
         for (int i = 0 ; i < cocktailsAndIng.size(); i++){
             ContentValues cv = new ContentValues();
             String[] cocktail = cocktailsAndIng.get(i);
@@ -34,7 +37,7 @@ public class FileReader {
             Log.d("FileReader" ,"Name = " + cocktailName + " Ingredients = " + cocktailIngredients + "\n");
             cv.put(DataContract.CocktailData.COLUMN_COCKTAIL_NAME, cocktailName);
             cv.put(DataContract.CocktailData.COLUMN_INGREDIENTS,cocktailIngredients);
-            contentValuesArray[i] = cv;
+            database.insertRowToCocktail(cv);
         }
     }
 }

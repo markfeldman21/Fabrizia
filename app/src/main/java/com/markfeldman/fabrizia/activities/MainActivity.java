@@ -1,6 +1,7 @@
 package com.markfeldman.fabrizia.activities;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.util.Log;
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.adapters.ViewPagerAdapter;
 import com.markfeldman.fabrizia.data.DataContract;
+import com.markfeldman.fabrizia.data.Database;
 import com.markfeldman.fabrizia.fragments.CocktailFragment;
 import com.markfeldman.fabrizia.fragments.ContactFragment;
 import com.markfeldman.fabrizia.fragments.HomeFragment;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.containerViewPager);
         setUpViewPagerWithFrags(viewPager);

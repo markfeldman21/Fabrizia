@@ -28,17 +28,6 @@ public class Database {
 
     public void close(){ mDb.close(); }
 
-    public void beginTransaction(){
-        mDb.beginTransaction();
-    }
-
-    public void transactionSuccesful(){
-        mDb.setTransactionSuccessful();
-    }
-
-    public void endTransaction(){
-        mDb.endTransaction();
-    }
 
     public Cursor getAllCocktailRows(){
         return mDb.query(DataContract.CocktailData.TABLE_NAME,null,null,null,null,null,null);
@@ -53,7 +42,7 @@ public class Database {
         return c;
     }
 
-    public long insertRowToContacts(ContentValues cv){
+    public long insertRowToCocktail(ContentValues cv){
         return mDb.insert(DataContract.CocktailData.TABLE_NAME, null,cv);
     }
 
