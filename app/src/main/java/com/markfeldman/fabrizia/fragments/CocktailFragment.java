@@ -1,8 +1,15 @@
 package com.markfeldman.fabrizia.fragments;
 
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,14 +20,19 @@ import android.view.ViewGroup;
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.adapters.DataRecyclerView;
 import com.markfeldman.fabrizia.data.Data;
+import com.markfeldman.fabrizia.data.DataContract;
+import com.markfeldman.fabrizia.data.Database;
 import com.markfeldman.fabrizia.utilities.PopUpUtility;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class CocktailFragment extends Fragment implements DataRecyclerView.RowClicked {
-
+public class CocktailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, DataRecyclerView.RowClicked {
+    private static final int LOADER_ID = 1;
+    private DataRecyclerView dataRecyclerView;
+    private String[] projection = {DataContract.CocktailData._ID,DataContract.CocktailData.COLUMN_COCKTAIL_NAME,
+            DataContract.CocktailData.COLUMN_INGREDIENTS};
     public CocktailFragment() {
     }
 
@@ -29,15 +41,14 @@ public class CocktailFragment extends Fragment implements DataRecyclerView.RowCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_cocktail, container, false);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList = readFromFile(arrayList);
+
         RecyclerView recyclerView = view.findViewById(R.id.cocktail_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        DataRecyclerView dataRecyclerView = new DataRecyclerView(this,getActivity(),arrayList);
+        dataRecyclerView = new DataRecyclerView(this,getActivity());
         recyclerView.setAdapter(dataRecyclerView);
-
+        getActivity().getSupportLoaderManager().initLoader(LOADER_ID, null, this);
         return view;
     }
 
@@ -47,12 +58,28 @@ public class CocktailFragment extends Fragment implements DataRecyclerView.RowCl
     }
 
 
-    private ArrayList<String> readFromFile(ArrayList<String> arrayList){
-        Scanner sc = new Scanner(getResources().openRawResource(R.raw.cocktail_names)).useDelimiter("\n");
-        while (sc.hasNextLine()){
-            arrayList.add(sc.next());
-        }
-        return arrayList;
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        Uri cocktailQuery = DataContract.CocktailData.CONTENT_URI;
+
+        return new CursorLoader(getActivity(),cocktailQuery,projection,null,null,null);
     }
 
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        if (data.getCount()!=0){
+            Log.d("Frag","Wow, something inside cursor ==== " + data.getCount());
+            dataRecyclerView.swap(data);
+
+        }else{
+            Log.d("Frag","FUCK");
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+
+    }
 }

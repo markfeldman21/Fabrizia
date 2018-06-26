@@ -1,6 +1,7 @@
 package com.markfeldman.fabrizia.adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,11 +12,13 @@ import android.widget.TextView;
 
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.data.Data;
+import com.markfeldman.fabrizia.data.DataContract;
 
 import java.util.ArrayList;
 
 public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private String[]data;
+    private Cursor cursor;
     private ArrayList<String> arrayList;
     private Context context;
     private RowClicked rowClicked;
@@ -29,9 +32,8 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    public DataRecyclerView(RowClicked rowClicked, Context context, ArrayList<String> arrayList){
+    public DataRecyclerView(RowClicked rowClicked, Context context){
         this.context = context;
-        this.arrayList = arrayList;
         this.rowClicked = rowClicked;
     }
 
@@ -73,13 +75,14 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_COCKTAILS:
                 CocktailsAdapterViewHolder holder1 = (CocktailsAdapterViewHolder) holder;
-                String cocktail = arrayList.get(position);
+                cursor.moveToPosition(position);
+                String cocktail = cursor.getString(cursor.getColumnIndex(DataContract.CocktailData.COLUMN_COCKTAIL_NAME));
                 holder1.cocktailName.setText(cocktail);
                 break;
             case VIEW_TYPE_RECIPES:
                 RecipesAdapterViewHolder holder2 = (RecipesAdapterViewHolder) holder;
-                String recipes = arrayList.get(position);
-                holder2.recipe.setText(recipes);
+                //String recipes = arrayList.get(position);
+                holder2.recipe.setText("Hi");
                 break;
             default:
                 throw new IllegalArgumentException("Invalid view type, value of ");
@@ -90,8 +93,12 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        if (cursor==null){
+            return 0;
+        }
+        return cursor.getCount();
     }
+
 
 
 
@@ -133,18 +140,18 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        String[] cocktails = Data.getCocktails();
-        //Log.d("TAG", "Data = " + data[0] + " and cocktails = " + cocktails[0]);
-        if (arrayList.get(0).equals(cocktails[0])) {
-            Log.d("TAG", "Inside RecyclerView Type Is Cocktails");
+        String cocktailCheck = "Whiskey Limoncello Smash ";
+        cursor.moveToFirst();
+        String cocktailOne = cursor.getString(cursor.getColumnIndex(DataContract.CocktailData.COLUMN_COCKTAIL_NAME));
+        if (cocktailCheck.equals(cocktailOne)) {
             return VIEW_TYPE_COCKTAILS;
         } else {
-            Log.d("TAG", "Inside RecyclerView Type Is Recipes");
             return VIEW_TYPE_RECIPES;
         }
     }
 
-
-
-
+    public void swap (Cursor c){
+        this.cursor = c;
+        notifyDataSetChanged();
+    }
 }

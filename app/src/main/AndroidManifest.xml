@@ -22,6 +22,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.FoodRecipes"></activity>
+
+        <provider
+            android:authorities="com.markfeldman.fabrizia"
+            android:name=".adapters.ContentProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

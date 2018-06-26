@@ -17,10 +17,15 @@ public class FileReader {
         Scanner sc = new Scanner(context.getResources().openRawResource(R.raw.cocktail_recipe));
 
         while (sc.hasNextLine()){
+            ContentValues cv = new ContentValues();
             String cocktail = sc.nextLine();
             String [] seperated = cocktail.split("-");
-            cocktailsAndIngredients.add(seperated);
-            insertToDB(cocktailsAndIngredients, context, database);
+            String cocktailName = seperated[0];
+            String cocktailIngredients = seperated[1];
+            cv.put(DataContract.CocktailData.COLUMN_COCKTAIL_NAME, cocktailName);
+            cv.put(DataContract.CocktailData.COLUMN_INGREDIENTS,cocktailIngredients);
+            database.insertRowToCocktail(cv);
+
         }
         database.close();
 
