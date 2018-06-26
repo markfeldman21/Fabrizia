@@ -25,15 +25,18 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter mViewPagerAdapter;
     private ViewPager viewPager;
-    FileReader fileReader = new FileReader();
+    //1. Create Database that stores cocktail name, recipe, and id + Create 2nd Database for Recipe names + ingredients
+    //2. Load data upon launch of app.
+    //3. Create Loader in the fragment class that returns Cursor
+    //4. Change RecyclerView to query database
+    //5. Do same for recipes
+    //6. Load 3 cocktail photos and 3 recipe photos to drawable for use.
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //AIzaSyB5HaUownHX8usW9OLP7280ncJwxaMWgiI
 
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.containerViewPager);
