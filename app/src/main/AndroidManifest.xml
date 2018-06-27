@@ -25,7 +25,7 @@
 
         <provider
             android:authorities="com.markfeldman.fabrizia"
-            android:name=".adapters.ContentProvider"
+            android:name=".adapters.DataContentProvider"
             android:exported="false"/>
     </application>
 
