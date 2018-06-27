@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.adapters.DataRecyclerView;
@@ -53,8 +54,8 @@ public class CocktailFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
-    public void onClicked(String cocktailName) {
-        PopUpUtility.addTaskPopUpWindow(getActivity());
+    public void onClicked(int rowID) {
+        PopUpUtility.addTaskPopUpWindow(getActivity(), rowID);
     }
 
 
@@ -62,20 +63,14 @@ public class CocktailFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         Uri cocktailQuery = DataContract.CocktailData.CONTENT_URI;
-
         return new CursorLoader(getActivity(),cocktailQuery,projection,null,null,null);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         if (data.getCount()!=0){
-            Log.d("Frag","Wow, something inside cursor ==== " + data.getCount());
             dataRecyclerView.swap(data);
-
-        }else{
-            Log.d("Frag","FUCK");
         }
-
     }
 
     @Override

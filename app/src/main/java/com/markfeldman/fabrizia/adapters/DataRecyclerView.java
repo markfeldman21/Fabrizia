@@ -28,7 +28,7 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
 
 
     public interface RowClicked{
-        void onClicked(String cocktailName);
+        void onClicked(int rowID);
     }
 
 
@@ -64,9 +64,6 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
             default:
                 throw new IllegalArgumentException("Invalid view type, value of " + viewType);
         }
-
-
-
 
     }
 
@@ -115,7 +112,9 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            rowClicked.onClicked("Position = " + adapterPosition);
+            cursor.moveToPosition(adapterPosition);
+            int id = cursor.getInt(cursor.getColumnIndex(DataContract.CocktailData._ID));
+            rowClicked.onClicked(id);
         }
     }
 
@@ -133,14 +132,16 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            rowClicked.onClicked("Position = " + adapterPosition);
+            cursor.moveToPosition(adapterPosition);
+            int id = cursor.getInt(cursor.getColumnIndex(DataContract.CocktailData._ID));
+            rowClicked.onClicked(id);
         }
     }
 
 
     @Override
     public int getItemViewType(int position) {
-        String cocktailCheck = "Whiskey Limoncello Smash ";
+        String cocktailCheck = "Whiskey Limoncello Smash";
         cursor.moveToFirst();
         String cocktailOne = cursor.getString(cursor.getColumnIndex(DataContract.CocktailData.COLUMN_COCKTAIL_NAME));
         if (cocktailCheck.equals(cocktailOne)) {

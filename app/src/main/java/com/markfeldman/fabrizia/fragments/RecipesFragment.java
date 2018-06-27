@@ -47,7 +47,7 @@ public class RecipesFragment extends Fragment implements DataRecyclerView.RowCli
     }
 
     @Override
-    public void onClicked(String cocktailName) {
+    public void onClicked(int cocktailName) {
         Intent showRecipe = new Intent(getActivity(),FoodRecipes.class);
         showRecipe.putExtra(INDEX_VALUE,cocktailName);
         startActivity(showRecipe);
