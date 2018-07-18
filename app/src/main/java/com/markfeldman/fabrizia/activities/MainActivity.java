@@ -27,6 +27,7 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
     private ViewPagerAdapter mViewPagerAdapter;
     private ViewPager viewPager;
+    private FileReader fileReader = new FileReader();
     //1. Create Database that stores cocktail name, recipe, and id + Create 2nd Database for Recipe names + ingredients
     //2. Load data upon launch of app.
     //3. Create Loader in the fragment class that returns Cursor
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.containerViewPager);
         setUpViewPagerWithFrags(viewPager);
-        new FileReader().readRecipesFromFile(this);
+        fileReader.readCocktailsFromFile(this);
+        fileReader.readRecipesFromFile(this);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 

@@ -20,7 +20,7 @@ public class DataContract {
     }
 
     public static class RecipeData implements BaseColumns {
-        public final static Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_RECIPES).build();
+        public final static Uri CONTENT_URI_RECIPES = BASE_CONTENT_URI.buildUpon().appendPath(PATH_RECIPES).build();
         public static final String TABLE_NAME = "recipes_table";
         public static final String COLUMN_RECIPE_NAME = "recipe_name";
         public static final String COLUMN_RECIPE_INGREDIENTS = "recipe_ingredients";

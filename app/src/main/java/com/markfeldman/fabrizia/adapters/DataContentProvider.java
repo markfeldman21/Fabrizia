@@ -46,21 +46,23 @@ public class DataContentProvider extends ContentProvider {
 
         switch (match){
             case CODE_COCKTAIL:{
+                Log.d("ContentProvider","INSIDE COCKTAIL QUERY" + match);
                 cursor = database.getAllCocktailRows();
                 break;
             }
             case CODE_COCKTAIL_WITH_ID:{
+                Log.d("ContentProvider","INSIDE COCKTAIL WITH ID");
                 cursor = database.getSpecificCocktailRow(projection,selectionArgs);
                 break;
             }
             case CODE_RECIPE:{
-                Log.d("ContentProvider","INSIDE RECIPE WITH ID");
-                cursor = database.getAllCocktailRows();
+                Log.d("ContentProvider","INSIDE RECIPE! + " + match);
+                cursor = database.getAllRecipeRows();
                 break;
             }
             case CODE_RECIPE_WITH_ID:{
-                Log.d("ContentProvider","INSIDE RECIPE WITH ID");
-                cursor = database.getAllCocktailRows();
+                Log.d("ContentProvider","INSIDE RECIPE WITH ID!");
+                cursor = database.getSpecificRecipeRow(projection,selectionArgs);
                 break;
             }
             default:

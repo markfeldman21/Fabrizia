@@ -143,10 +143,12 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemViewType(int position) {
         String cocktailCheck = "Whiskey Limoncello Smash";
         cursor.moveToFirst();
-        String cocktailOne = cursor.getString(cursor.getColumnIndex(DataContract.CocktailData.COLUMN_COCKTAIL_NAME));
-        if (cocktailCheck.equals(cocktailOne)) {
+        //String cocktailOne = cursor.getString(cursor.getColumnIndex(DataContract.CocktailData.COLUMN_COCKTAIL_NAME));
+        if (cocktailCheck.equals("Whiskey Limoncello Smash")) {
+            Log.d("Recycler", "INSIDE COCKTAIL");
             return VIEW_TYPE_COCKTAILS;
         } else {
+            Log.d("Recycler", "INSIDE RECIPE");
             return VIEW_TYPE_RECIPES;
         }
     }

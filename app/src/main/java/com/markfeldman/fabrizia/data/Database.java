@@ -33,9 +33,22 @@ public class Database {
         return mDb.query(DataContract.CocktailData.TABLE_NAME,null,null,null,null,null,null);
     };
 
+    public Cursor getAllRecipeRows(){
+        return mDb.query(DataContract.RecipeData.TABLE_NAME,null,null,null,null,null,null);
+    };
+
     public Cursor getSpecificCocktailRow(String[] projection,String[] rowID){
         String selection = DataContract.CocktailData._ID + "=?";
         Cursor c = mDb.query(DataContract.CocktailData.TABLE_NAME,projection,selection,rowID,null,null,null);
+        if (c!=null){
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public Cursor getSpecificRecipeRow(String[] projection,String[] rowID){
+        String selection = DataContract.RecipeData._ID + "=?";
+        Cursor c = mDb.query(DataContract.RecipeData.TABLE_NAME,projection,selection,rowID,null,null,null);
         if (c!=null){
             c.moveToFirst();
         }
@@ -46,6 +59,12 @@ public class Database {
         return mDb.insert(DataContract.CocktailData.TABLE_NAME, null,cv);
     }
 
+    public long insertRowToRecipes(ContentValues cv){
+        return mDb.insert(DataContract.RecipeData.TABLE_NAME, null,cv);
+    }
+
+
+    //*********************************************************************************************
 
     private class DatabaseHelper extends SQLiteOpenHelper{
 
@@ -55,6 +74,12 @@ public class Database {
                 DataContract.CocktailData.COLUMN_INGREDIENTS + " TEXT NOT NULL " +
                 ");";
 
+        private final static String CREATE_RECIPES_TABLE = "CREATE TABLE " + DataContract.RecipeData.TABLE_NAME +
+                " ("+ DataContract.RecipeData._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DataContract.RecipeData.COLUMN_RECIPE_NAME + " TEXT NOT NULL, " +
+                DataContract.RecipeData.COLUMN_RECIPE_INGREDIENTS + " TEXT NOT NULL " +
+                ");";
+
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
@@ -62,11 +87,13 @@ public class Database {
         @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(CREATE_COCKTAILS_TABLE);
+            db.execSQL(CREATE_RECIPES_TABLE);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " + DataContract.CocktailData.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataContract.RecipeData.TABLE_NAME);
             onCreate(db);
 
         }

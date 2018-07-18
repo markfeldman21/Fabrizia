@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileReader {
-    public void readRecipesFromFile(Context context){
-        ArrayList<String[]> cocktailsAndIngredients = new ArrayList<>();
+    public void readCocktailsFromFile(Context context){
+
         Database database = new Database(context);
         database.openWritable();
         Scanner sc = new Scanner(context.getResources().openRawResource(R.raw.cocktail_recipe));
@@ -28,21 +28,26 @@ public class FileReader {
 
         }
         database.close();
-
     }
 
-    private void insertToDB(ArrayList<String[]> cocktailsAndIng, Context context, Database database){
-        ContentValues[] contentValuesArray = new ContentValues[cocktailsAndIng.size()];
 
-        for (int i = 0 ; i < cocktailsAndIng.size(); i++){
+    public void readRecipesFromFile(Context context){
+        Database database = new Database(context);
+        database.openWritable();
+        Scanner sc = new Scanner(context.getResources().openRawResource(R.raw.food_recipes));
+
+        while (sc.hasNextLine()){
             ContentValues cv = new ContentValues();
-            String[] cocktail = cocktailsAndIng.get(i);
-            String cocktailName = cocktail[0];
-            String cocktailIngredients = cocktail[1];
-            Log.d("FileReader" ,"Name = " + cocktailName + " Ingredients = " + cocktailIngredients + "\n");
-            cv.put(DataContract.CocktailData.COLUMN_COCKTAIL_NAME, cocktailName);
-            cv.put(DataContract.CocktailData.COLUMN_INGREDIENTS,cocktailIngredients);
-            database.insertRowToCocktail(cv);
+            String food_recipe = sc.nextLine();
+            String [] seperated = food_recipe.split("-");
+            String recipeName = seperated[0];
+            String foodRecipeIngredients = seperated[1];
+            cv.put(DataContract.RecipeData.COLUMN_RECIPE_NAME, recipeName);
+            cv.put(DataContract.RecipeData.COLUMN_RECIPE_INGREDIENTS,foodRecipeIngredients);
+            database.insertRowToRecipes(cv);
+
         }
+        database.close();
     }
+
 }
