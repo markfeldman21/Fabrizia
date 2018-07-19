@@ -46,7 +46,7 @@ public class DataContentProvider extends ContentProvider {
 
         switch (match){
             case CODE_COCKTAIL:{
-                Log.d("ContentProvider","INSIDE COCKTAIL QUERY" + match);
+                Log.d("ContentProvider","CONTENT PROVIDER: Inside cocktail Query. Match = " + match);
                 cursor = database.getAllCocktailRows();
                 break;
             }
@@ -56,7 +56,7 @@ public class DataContentProvider extends ContentProvider {
                 break;
             }
             case CODE_RECIPE:{
-                Log.d("ContentProvider","INSIDE RECIPE! + " + match);
+                Log.d("ContentProvider","CONTENT PROVIDER: Inside recipe Query. Match = " + match);
                 cursor = database.getAllRecipeRows();
                 break;
             }
@@ -69,6 +69,9 @@ public class DataContentProvider extends ContentProvider {
                 throw new UnsupportedOperationException("UKNOWN URI:" + uri);
         }
         cursor.setNotificationUri(getContext().getContentResolver(),uri);
+
+
+
         return cursor;
 
     }

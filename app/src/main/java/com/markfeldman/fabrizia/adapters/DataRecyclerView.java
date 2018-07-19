@@ -17,9 +17,7 @@ import com.markfeldman.fabrizia.data.DataContract;
 import java.util.ArrayList;
 
 public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    private String[]data;
     private Cursor cursor;
-    private ArrayList<String> arrayList;
     private Context context;
     private RowClicked rowClicked;
     final private int VIEW_TYPE_COCKTAILS = 0;
@@ -48,6 +46,7 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         switch (viewType) {
             case VIEW_TYPE_RECIPES: {
+                Log.d("Recycler", "RecylerView: INSIDE RECIPE LAYOUT ON CREATE VIEW HOLDER");
                 layoutId = R.layout.individual_recipe;
                 View view = inflater.inflate(layoutId,parent,false);
                 return new RecipesAdapterViewHolder(view);
@@ -55,6 +54,7 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
             case VIEW_TYPE_COCKTAILS: {
+                Log.d("Recycler", "RecylerView: INSIDE COCKTAILS LAYOUT ON CREATE VIEW HOLDER");
                 layoutId = R.layout.individual_cocktail;
                 View view = inflater.inflate(layoutId,parent,false);
                 return new CocktailsAdapterViewHolder(view);
@@ -78,8 +78,9 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
                 break;
             case VIEW_TYPE_RECIPES:
                 RecipesAdapterViewHolder holder2 = (RecipesAdapterViewHolder) holder;
-                //String recipes = arrayList.get(position);
-                holder2.recipe.setText("Hi");
+                cursor.moveToPosition(position);
+                String recipeName = cursor.getString(cursor.getColumnIndex(DataContract.RecipeData.COLUMN_RECIPE_NAME));
+                holder2.recipe.setText(recipeName);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid view type, value of ");
@@ -90,12 +91,13 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
+
         if (cursor==null){
             return 0;
         }
+        Log.d("Recycler", "INSIDE RECYCLERVIEW's GET ITEM COUNT = " + cursor.getCount());
         return cursor.getCount();
     }
-
 
 
 
@@ -141,15 +143,21 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        String cocktailCheck = "Whiskey Limoncello Smash";
+        String cocktailCheck = null;
+        String recipeCheck = null;
         cursor.moveToFirst();
-        //String cocktailOne = cursor.getString(cursor.getColumnIndex(DataContract.CocktailData.COLUMN_COCKTAIL_NAME));
-        if (cocktailCheck.equals("Whiskey Limoncello Smash")) {
-            Log.d("Recycler", "INSIDE COCKTAIL");
+
+        Log.d("Recycler", "****COLUMN NAME IS " + cursor.getColumnName(1) + "****");
+
+
+        if (cursor.getColumnName(1).equals("cocktail_name")) {
+            Log.d("Recycler", "****INSIDE RECYCLERVIEW's GET ITEM = COCKTAIL****");
             return VIEW_TYPE_COCKTAILS;
-        } else {
-            Log.d("Recycler", "INSIDE RECIPE");
+        } else if (cursor.getColumnName(1).equals("recipe_name")){
+            Log.d("Recycler", "****INSIDE RECYCLERVIEW's GET ITEM = RECIPES****");
             return VIEW_TYPE_RECIPES;
+        }else{
+            return 2;
         }
     }
 

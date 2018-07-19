@@ -49,6 +49,7 @@ public class CocktailFragment extends Fragment implements LoaderManager.LoaderCa
         recyclerView.setHasFixedSize(true);
         dataRecyclerView = new DataRecyclerView(this,getActivity());
         recyclerView.setAdapter(dataRecyclerView);
+        Log.d("Recipes","INSIDE COCKTAIL FRAG MAIN! ");
         getActivity().getSupportLoaderManager().initLoader(LOADER_ID, null, this);
         return view;
     }
@@ -69,12 +70,15 @@ public class CocktailFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         if (data.getCount()!=0){
+            Log.d("Recipes","INSIDE COCKTAIL FRAG BEFORE SWAP! " +
+            data.getColumnName(1));
             dataRecyclerView.swap(data);
         }
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+    public void onLoaderReset(Loader<Cursor> loader) {
+
 
     }
 }

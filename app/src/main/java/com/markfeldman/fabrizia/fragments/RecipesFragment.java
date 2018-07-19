@@ -13,6 +13,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.markfeldman.fabrizia.activities.FoodRecipes;
 import com.markfeldman.fabrizia.adapters.DataRecyclerView;
 import com.markfeldman.fabrizia.data.Data;
 import com.markfeldman.fabrizia.data.DataContract;
+import com.markfeldman.fabrizia.data.Database;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +34,7 @@ public class RecipesFragment extends Fragment implements DataRecyclerView.RowCli
     private static final int LOADER_ID = 2;
     public final static String INDEX_VALUE = "recipe index";
     private DataRecyclerView dataRecyclerView;
+
     private String[] projection = {DataContract.RecipeData._ID,DataContract.RecipeData.COLUMN_RECIPE_NAME,
     DataContract.RecipeData.COLUMN_RECIPE_INGREDIENTS};
 
@@ -46,15 +49,16 @@ public class RecipesFragment extends Fragment implements DataRecyclerView.RowCli
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipes, container, false);
 
-/*
+
         RecyclerView recyclerView = view.findViewById(R.id.recipe_recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         dataRecyclerView = new DataRecyclerView(this,getActivity());
         recyclerView.setAdapter(dataRecyclerView);
-        getActivity().getSupportLoaderManager().initLoader(LOADER_ID, null, this);
-        */
+
+        Log.d("Recipes","INSIDE RECIPE FRAG MAIN! ");
+        getActivity().getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
 
         return view;
     }
@@ -69,20 +73,24 @@ public class RecipesFragment extends Fragment implements DataRecyclerView.RowCli
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        Uri cocktailQuery = DataContract.RecipeData.CONTENT_URI_RECIPES;
-        return new CursorLoader(getActivity(),cocktailQuery,projection,null,null,null);
+        Log.d("Recipes","INSIDE RECIPES LOADER!!! ON CREATE ");
+        Uri recipesQuery = DataContract.RecipeData.CONTENT_URI_RECIPES;
+        return new CursorLoader(getActivity(),recipesQuery,projection,null,null,null);
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         if (data.getCount()!=0){
+            data.moveToFirst();
+            Log.d("Recipes Frag", "Recipes Fragment prior to swap. Data = " +
+                    data.getString(data.getColumnIndex(DataContract.RecipeData.COLUMN_RECIPE_NAME)));
             dataRecyclerView.swap(data);
         }
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+    public void onLoaderReset(Loader<Cursor> loader) {
+
 
     }
-
 }

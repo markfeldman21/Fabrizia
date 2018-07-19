@@ -53,10 +53,12 @@ public class MainActivity extends AppCompatActivity {
     private void setUpViewPagerWithFrags(ViewPager viewPager){
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new HomeFragment(),"HOME");
-        viewPagerAdapter.addFragment(new ProductsFragment(), "Products");
+        //viewPagerAdapter.addFragment(new ProductsFragment(), "Products");
         viewPagerAdapter.addFragment(new CocktailFragment(), "Cocktails");
-        viewPagerAdapter.addFragment(new RecipesFragment(),"Recipes");
         viewPagerAdapter.addFragment(new ContactFragment(),"Contact");
+        viewPagerAdapter.addFragment(new RecipesFragment(),"Recipes");
+
+
         viewPager.setAdapter(viewPagerAdapter);
     }
 

@@ -42,6 +42,7 @@ public class FileReader {
             String [] seperated = food_recipe.split("-");
             String recipeName = seperated[0];
             String foodRecipeIngredients = seperated[1];
+            Log.d("FileReader", " INSIDE READER = " + recipeName + " "  + foodRecipeIngredients);
             cv.put(DataContract.RecipeData.COLUMN_RECIPE_NAME, recipeName);
             cv.put(DataContract.RecipeData.COLUMN_RECIPE_INGREDIENTS,foodRecipeIngredients);
             database.insertRowToRecipes(cv);
