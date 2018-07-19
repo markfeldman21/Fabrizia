@@ -57,9 +57,8 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(new CocktailFragment(), "Cocktails");
         viewPagerAdapter.addFragment(new ContactFragment(),"Contact");
         viewPagerAdapter.addFragment(new RecipesFragment(),"Recipes");
-
-
         viewPager.setAdapter(viewPagerAdapter);
+
     }
 
 }

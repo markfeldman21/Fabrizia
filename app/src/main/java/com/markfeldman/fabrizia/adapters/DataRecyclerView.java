@@ -147,7 +147,7 @@ public class DataRecyclerView extends RecyclerView.Adapter<RecyclerView.ViewHold
         String recipeCheck = null;
         cursor.moveToFirst();
 
-        Log.d("Recycler", "****COLUMN NAME IS " + cursor.getColumnName(1) + "****");
+        //Bug Fixed Here
 
 
         if (cursor.getColumnName(1).equals("cocktail_name")) {
