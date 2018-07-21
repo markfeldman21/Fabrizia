@@ -20,14 +20,8 @@ import android.widget.Toast;
 
 import com.markfeldman.fabrizia.R;
 import com.markfeldman.fabrizia.adapters.DataRecyclerView;
-import com.markfeldman.fabrizia.data.Data;
 import com.markfeldman.fabrizia.data.DataContract;
-import com.markfeldman.fabrizia.data.Database;
 import com.markfeldman.fabrizia.utilities.PopUpUtility;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class CocktailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, DataRecyclerView.RowClicked {
     private static final int LOADER_ID = 1;

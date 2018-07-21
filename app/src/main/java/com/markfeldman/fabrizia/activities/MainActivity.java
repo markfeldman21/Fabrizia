@@ -2,7 +2,9 @@ package com.markfeldman.fabrizia.activities;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
